@@ -34,7 +34,7 @@ module Scenic
 
         sql_definition ||= definition(name, version)
 
-        Scenic.database.create_function(name, sql_definition)
+        Scenic.database.create_function(sql_definition)
       end
 
       # Drop a database function by name.

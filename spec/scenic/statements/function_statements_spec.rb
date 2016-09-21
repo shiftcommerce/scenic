@@ -18,8 +18,7 @@ module Scenic
 
           connection.create_function :functions, version: version
 
-          expect(Scenic.database).to have_received(:create_function)
-                                         .with(:functions, definition_stub.to_sql)
+          expect(Scenic.database).to have_received(:create_function).with(definition_stub.to_sql)
         end
 
         it 'creates a function from a text definition' do
@@ -27,8 +26,7 @@ module Scenic
 
           connection.create_function(:functions, sql_definition: sql_definition)
 
-          expect(Scenic.database).to have_received(:create_function)
-                                         .with(:functions, sql_definition)
+          expect(Scenic.database).to have_received(:create_function).with(sql_definition)
         end
 
         it 'creates version 1 of the function if neither version nor sql_defintion are provided' do
@@ -40,8 +38,7 @@ module Scenic
 
           connection.create_function :functions
 
-          expect(Scenic.database).to have_received(:create_function).
-              with(:functions, definition_stub.to_sql)
+          expect(Scenic.database).to have_received(:create_function).with(definition_stub.to_sql)
         end
 
         it 'raises an error if both version and sql_defintion are provided' do
