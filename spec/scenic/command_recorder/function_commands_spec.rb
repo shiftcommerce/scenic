@@ -65,32 +65,6 @@ describe Scenic::CommandRecorder::FunctionCommands do
     end
   end
 
-  describe "#replace_function" do
-    it "records the replaced function" do
-      args = [:users, { version: 2 }]
-
-      recorder.replace_function(*args)
-
-      expect(recorder.commands).to eq [[:replace_function, args, nil]]
-    end
-
-    it "reverts to replace_function with the specified revert_to_version" do
-      args = [:users, { version: 2, revert_to_version: 1 }]
-      revert_args = [:users, { version: 1 }]
-
-      recorder.revert { recorder.replace_function(*args) }
-
-      expect(recorder.commands).to eq [[:replace_function, revert_args]]
-    end
-
-    it "raises when reverting without revert_to_version set" do
-      args = [:users, { version: 42, another_argument: 1 }]
-
-      expect { recorder.revert { recorder.replace_function(*args) } }
-        .to raise_error(ActiveRecord::IrreversibleMigration)
-    end
-  end
-
   def recorder
     @recorder ||= ActiveRecord::Migration::CommandRecorder.new
   end

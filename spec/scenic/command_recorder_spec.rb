@@ -18,11 +18,9 @@ module Scenic
     it { is_expected.to respond_to(:create_function) }
     it { is_expected.to respond_to(:drop_function) }
     it { is_expected.to respond_to(:update_function) }
-    it { is_expected.to respond_to(:replace_function) }
     it { is_expected.to respond_to(:invert_create_function) }
     it { is_expected.to respond_to(:invert_drop_function) }
     it { is_expected.to respond_to(:invert_update_function) }
-    it { is_expected.to respond_to(:invert_replace_function) }
     
   end
 end

@@ -17,10 +17,6 @@ module Scenic
         record(:update_function, args)
       end
 
-      def replace_function(*args)
-        record(:replace_function, args)
-      end
-
       def invert_create_function(args)
         [:drop_function, args]
       end
@@ -32,11 +28,6 @@ module Scenic
       def invert_update_function(args)
         perform_scenic_inversion(:update_function, args)
       end
-
-      def invert_replace_function(args)
-        perform_scenic_inversion(:replace_function, args)
-      end
-
     end
   end
 end

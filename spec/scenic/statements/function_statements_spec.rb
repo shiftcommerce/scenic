@@ -94,25 +94,6 @@ module Scenic
         end
       end
 
-      describe 'replace_function' do
-        it 'replaces the function in the database' do
-          definition = instance_double('Definition', to_sql: 'definition')
-          allow(Definition).to receive(:new)
-                                   .with(:name, 3, :function)
-                                   .and_return(definition)
-
-          connection.replace_function(:name, version: 3)
-
-          expect(Scenic.database).to have_received(:replace_function)
-                                         .with(:name, definition.to_sql)
-        end
-
-        it 'raises an error if not supplied a version' do
-          expect { connection.replace_function :functions }
-              .to raise_error(ArgumentError, /version is required/)
-        end
-      end
-
       def connection
         Class.new { extend FunctionStatements }
       end
