@@ -2,8 +2,6 @@ require 'rails/generators'
 require 'rails/generators/active_record'
 require 'generators/scenic/materializable'
 
-require 'byebug'
-
 module Scenic
   module Generators
     # @api private

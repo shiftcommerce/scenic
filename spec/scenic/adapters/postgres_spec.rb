@@ -17,7 +17,7 @@ module Scenic
         it 'successfully creates a function' do
           adapter = Postgres.new
 
-          adapter.create_function(:hello, <<SQL)
+          adapter.create_function(<<SQL)
             CREATE OR REPLACE FUNCTION public.hello()
             RETURNS character varying
             LANGUAGE plpgsql

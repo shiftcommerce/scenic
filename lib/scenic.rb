@@ -22,7 +22,7 @@ module Scenic
     ActiveRecord::ConnectionAdapters::AbstractAdapter.include Scenic::Statements
     ActiveRecord::Migration::CommandRecorder.include Scenic::CommandRecorder
     ActiveRecord::SchemaDumper.prepend Scenic::SchemaViewDumper
-    # ActiveRecord::SchemaDumper.prepend Scenic::SchemaFunctionDumper
+    ActiveRecord::SchemaDumper.prepend Scenic::SchemaFunctionDumper
   end
 
   # The current database adapter used by Scenic.

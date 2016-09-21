@@ -149,7 +149,8 @@ module Scenic
       #
       # @return [void]
       def drop_function(name)
-        execute "DROP function #{name.to_s};"
+        name = name.is_a?(Symbol) ? "#{name.to_s}()" : name
+        execute "DROP function #{name};"
       end
 
       # Creates a materialized view in the database
