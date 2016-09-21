@@ -149,7 +149,7 @@ module Scenic
       #
       # @return [void]
       def drop_function(name)
-        execute "DROP function #{name};"
+        execute "DROP function #{name.to_s};"
       end
 
       # Creates a materialized view in the database
