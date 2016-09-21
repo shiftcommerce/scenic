@@ -80,7 +80,7 @@ module Scenic
       # NOTE: This should be the fully formed SQL definition including the 'CREATE OR REPLACE FUNCTION' part
       #
       # @return [void]
-      def create_function(name, sql_definition)
+      def create_function(sql_definition)
         execute sql_definition
       end
 
@@ -139,6 +139,17 @@ module Scenic
       # @return [void]
       def drop_view(name)
         execute "DROP VIEW #{quote_table_name(name)};"
+      end
+      
+      # Drops the named function from the database
+      #
+      # This is typically called in a migration via {Statements#drop_function}.
+      #
+      # @param name The name of the function to drop
+      #
+      # @return [void]
+      def drop_function(name)
+        execute "DROP function #{name};"
       end
 
       # Creates a materialized view in the database

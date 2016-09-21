@@ -83,6 +83,26 @@ SQL
           expect(adapter.views.map(&:name)).not_to include("greetings")
         end
       end
+      
+      describe '#drop_function' do
+        it 'successfully drops a function' do
+          adapter = Postgres.new
+
+          adapter.create_function(<<SQL)
+            CREATE OR REPLACE FUNCTION public.hello()
+            RETURNS character varying
+            LANGUAGE plpgsql
+            AS $function$
+            BEGIN
+              RETURN 'hello';
+            END
+            $function$
+SQL
+          adapter.drop_function('public.hello()')
+
+          expect(adapter.functions.map(&:name)).not_to include("hello")
+        end
+      end
 
       describe "#drop_materialized_view" do
         it "successfully drops a materialized view" do
