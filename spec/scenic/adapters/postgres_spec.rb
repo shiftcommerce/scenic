@@ -13,6 +13,25 @@ module Scenic
         end
       end
 
+      describe '#create_function' do
+        it 'successfully creates a function' do
+          adapter = Postgres.new
+
+          adapter.create_function(:hello, <<SQL)
+            CREATE OR REPLACE FUNCTION public.hello()
+            RETURNS character varying
+            LANGUAGE plpgsql
+            AS $function$
+            BEGIN
+              RETURN 'hello';
+            END
+            $function$
+SQL
+
+          expect(adapter.functions.map(&:name)).to include('hello')
+        end
+      end
+
       describe "#create_materialized_view" do
         it "successfully creates a materialized view" do
           adapter = Postgres.new
