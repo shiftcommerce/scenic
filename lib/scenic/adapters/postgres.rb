@@ -103,6 +103,21 @@ module Scenic
       def update_view(name, sql_definition)
         drop_view(name)
         create_view(name, sql_definition)
+      end      
+      
+      # Updates a function in the database.
+      #
+      # This results in a {#drop_function} followed by a {#create_function}.
+      #
+      # This is typically called in a migration via {Statements#update_function}.
+      #
+      # @param name The name of the function to update
+      # @param sql_definition The SQL schema for the updated function.
+      #
+      # @return [void]
+      def update_function(name, sql_definition)
+        drop_function(name)
+        create_function(sql_definition)
       end
 
       # Replaces a view in the database using `CREATE OR REPLACE VIEW`.
