@@ -55,9 +55,9 @@ module Scenic
 
         def migration_class_name
           if creating_new_function?
-            "Create#{class_name.gsub('.', '').pluralize}"
+            "Create#{class_name.gsub('.', '')}"
           else
-            "Update#{class_name.pluralize}ToVersion#{version}"
+            "Update#{class_name}ToVersion#{version}"
           end
         end
       end

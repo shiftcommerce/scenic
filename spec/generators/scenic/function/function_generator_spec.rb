@@ -24,16 +24,4 @@ describe Scenic::Generators::FunctionGenerator, :generator do
       expect(function_definition).to exist
     end
   end
-
-  context "for functions created in a schema other than 'public'" do
-    xit 'creates function definition and migration files' do
-      migration = file('db/migrate/create_non_public_say_hello.rb')
-      function_definition = file('db/views/non_public_say_hello_v01.sql')
-
-      run_generator ['non_public.search']
-
-      expect(migration).to be_a_migration
-      expect(function_definition).to exist
-    end
-  end
 end
