@@ -52,7 +52,7 @@ module Scenic
         it 'removes a function from the database' do
           connection.drop_function :name
 
-          expect(Scenic.database).to have_received(:drop_function).with(:name)
+          expect(Scenic.database).to have_received(:drop_function).with(:name, nil)
         end
       end
 
