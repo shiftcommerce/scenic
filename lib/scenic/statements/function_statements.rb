@@ -32,7 +32,7 @@ module Scenic
           version = 1
         end
 
-        sql_definition ||= definition(name, version)
+        sql_definition ||= function_definition(name, version)
 
         Scenic.database.create_function(sql_definition)
       end
@@ -40,16 +40,15 @@ module Scenic
       # Drop a database function by name.
       #
       # @param name [String, Symbol] The name of the database function.
-      # @param revert_to_version [Fixnum] Used to reverse the `drop_function` command
-      #   on `rake db:rollback`. The provided version will be passed as the
-      #   `version` argument to {#create_function}.
+      # @param custom_drop_statement A custom drop statement to be used especially when the function has parameters or in
+      # otherwise complex cases
       # @return The database response from executing the drop statement.
       #
       # @example Drop a function, rolling back to version 3 on rollback
       #   drop_function(:users_who_recently_logged_in, revert_to_version: 3)
       #
-      def drop_function(name, revert_to_version: nil)
-        Scenic.database.drop_function(name)
+      def drop_function(name, custom_drop_statement = nil)
+        Scenic.database.drop_function(name, custom_drop_statement)
       end
 
       # Update a database function to a new version.
@@ -84,14 +83,14 @@ module Scenic
           )
         end
 
-        sql_definition ||= definition(name, version)
+        sql_definition ||= function_definition(name, version)
 
         Scenic.database.update_function(name, sql_definition)
       end
 
       private
 
-      def definition(name, version)
+      def function_definition(name, version)
         Scenic::Definition.new(name, version, :function).to_sql
       end
     end
