@@ -161,11 +161,20 @@ module Scenic
       # This is typically called in a migration via {Statements#drop_function}.
       #
       # @param name The name of the function to drop
+      # @param custom_drop_statement A custom drop statement to be used especially when the function has parameters or in
+      # otherwise complex cases
       #
       # @return [void]
-      def drop_function(name)
-        name = name.is_a?(Symbol) ? "#{name.to_s}()" : name
-        execute "DROP function #{name};"
+      def drop_function(name, custom_drop_statement = nil)
+
+        drop_statement = if custom_drop_statement.present?
+                           custom_drop_statement
+                         else
+                           function_name = name.to_s.ends_with?(')') ? name : "#{name.to_s}()"
+                           "DROP function #{function_name};"
+                         end
+
+        execute drop_statement
       end
 
       # Creates a materialized view in the database
