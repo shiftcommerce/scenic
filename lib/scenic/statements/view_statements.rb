@@ -34,7 +34,7 @@ module Scenic
           version = 1
         end
 
-        sql_definition ||= definition(name, version)
+        sql_definition ||= view_definition(name, version)
 
         if materialized
           Scenic.database.create_materialized_view(name, sql_definition)
@@ -98,7 +98,7 @@ module Scenic
           )
         end
 
-        sql_definition ||= definition(name, version)
+        sql_definition ||= view_definition(name, version)
 
         if materialized
           Scenic.database.update_materialized_view(name, sql_definition)
@@ -132,14 +132,14 @@ module Scenic
           raise ArgumentError, "Cannot replace materialized views"
         end
 
-        sql_definition = definition(name, version)
+        sql_definition = view_definition(name, version)
 
         Scenic.database.replace_view(name, sql_definition)
       end
 
       private
 
-      def definition(name, version)
+      def view_definition(name, version)
         Scenic::Definition.new(name, version).to_sql
       end
     end
