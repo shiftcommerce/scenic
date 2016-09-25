@@ -6,7 +6,7 @@ module Scenic
 
       let(:hello_bob_function) do
         <<-SQL
-          CREATE OR REPLACE FUNCTION public.hello_bob()
+          CREATE OR REPLACE FUNCTION hello_bob()
           RETURNS character varying
           LANGUAGE plpgsql
           AS $function$
@@ -19,7 +19,7 @@ module Scenic
 
       let(:hello_dave_function) do
         <<-SQL
-          CREATE OR REPLACE FUNCTION public.hello_dave()
+          CREATE OR REPLACE FUNCTION hello_dave()
           RETURNS character varying
           LANGUAGE plpgsql
           AS $function$

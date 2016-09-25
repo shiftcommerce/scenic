@@ -24,7 +24,13 @@ module Scenic
 
         def functions_from_postgres
           connection.execute(<<-SQL)
-            SELECT ns.nspname AS namespace, p.proname AS function_name, t.typname, pg_get_function_result(p.oid) AS result, pg_get_function_identity_arguments(p.oid) AS arguments, pg_get_function_arguments(p.oid), p.prosrc, pg_get_functiondef(p.oid) AS definition
+            SELECT DISTINCT ON (p.proname) proname AS "name",
+              ns.nspname AS namespace,
+              t.typname,
+              pg_get_function_result(p.oid) AS result_type,
+              pg_get_function_arguments(p.oid) AS arguments,
+              p.prosrc AS source,
+              pg_get_functiondef(p.oid) AS definition
             FROM pg_proc p, pg_language l, pg_type t, pg_namespace ns
             WHERE p.prolang = l.oid
               AND p.prorettype = t.oid
@@ -35,18 +41,7 @@ module Scenic
         end
 
         def to_scenic_function(result)
-          namespace, function_name, definition = result.values_at 'namespace', 'function_name', 'definition'
-
-          if namespace != "public"
-            namespaced_function_name = "#{namespace}.#{function_name}"
-          else
-            namespaced_function_name = function_name
-          end
-
-          Scenic::Function.new(
-            name: namespaced_function_name,
-            definition: definition
-          )
+          Scenic::Function.new(result.symbolize_keys.slice(:name, :namespace, :arguments, :result_type, :source))
         end
       end
     end
