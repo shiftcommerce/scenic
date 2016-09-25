@@ -6,8 +6,15 @@ module Scenic
     # @return Scenic adapter
     attr_accessor :database
 
+    # A flag indicating if functions should be dumped with their schema namespace
+    #
+    # Defualts to false
+    # @return boolean
+    attr_accessor :namespace_functions
+
     def initialize
       @database = Scenic::Adapters::Postgres.new
+      @namespace_functions = false
     end
   end
 
