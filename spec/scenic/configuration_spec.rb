@@ -10,7 +10,7 @@ module Scenic
     end
 
     it "defaults the namespace_functions flag to false" do
-      expect(Scenic.configuration.namespace_functions).to eq(false)
+      expect(Scenic.configuration.dump_function_namespace_in_schema).to eq(false)
     end
 
     it "allows the database adapter to be set" do

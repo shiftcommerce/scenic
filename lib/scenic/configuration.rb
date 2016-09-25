@@ -10,11 +10,11 @@ module Scenic
     #
     # Defualts to false
     # @return boolean
-    attr_accessor :namespace_functions
+    attr_accessor :dump_function_namespace_in_schema
 
     def initialize
       @database = Scenic::Adapters::Postgres.new
-      @namespace_functions = false
+      @dump_function_namespace_in_schema = false
     end
   end
 
